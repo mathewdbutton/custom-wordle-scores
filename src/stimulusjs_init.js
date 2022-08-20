@@ -3,7 +3,9 @@ import { Application } from "@hotwired/stimulus"
 
 import EmojiPickerController from "./controllers/emoji_picker_controller"
 import ThemeGeneratorController from "./controllers/theme_generator_controller"
+import OutputClipboardController from "./controllers/output_clipboard_controller"
 
-window.Stimulus = Application.start()
-Stimulus.register("emoji-picker", EmojiPickerController)
-Stimulus.register("theme-generator", ThemeGeneratorController)
+window.Stimulus = Application.start();
+Stimulus.register("emoji-picker", EmojiPickerController);
+Stimulus.register("theme-generator", ThemeGeneratorController);
+Stimulus.register("output-clipboard", OutputClipboardController);
