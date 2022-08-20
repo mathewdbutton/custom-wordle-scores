@@ -9,8 +9,11 @@ export default class extends Controller {
 
   change() {
     let inputScore = this.inputTarget.value;
+    if (inputScore === "") {
+      return;
+    }
     let legend =
-      `\n⬛=${this.wrongTarget.value} 🟨=${this.missTarget.value} 🟩=${this.hitTarget.value}`;
+      `\n\n${this.wrongTarget.value}=⬛ ${this.missTarget.value}=🟨 ${this.hitTarget.value}=🟩`;
     this.outputTarget.value = inputScore
       .replaceAll("⬛", this.wrongTarget.value)
       .replaceAll("🟨", this.missTarget.value)
