@@ -47,6 +47,6 @@ variables = JSON.parse(File.read(variable_path))
   end
 
 
-File.open("./src/index.out.html", 'w') do |file|
+File.open("./src/index.html", 'w') do |file|
   IndexHelper.new(file, template,**variables.transform_keys(&:to_sym)).build
 end

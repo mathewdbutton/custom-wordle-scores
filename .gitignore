@@ -2,4 +2,4 @@
 dist
 node_modules
 output
-src/index.out.html
+src/index.html
