@@ -8,14 +8,14 @@
   </head>
   <body>
     <div class="container mx-auto p-20" >
-      <div data-controller="theme-generator output-clipboard" >
+      <div data-controller="theme-generator output-clipboard preferences-saver">
         <h1 class="text-cyan-400 text-4xl text-center pb-4">Custom Wordle Scores</h1>
         <div class="flex flex-col lg:flex-row justify-center">
           <div class="px-10 lg:w-72 space-y-4">
             Customise your tiles
             <div class="border border-gray-300 rounded-lg p-2">
               <label for="miss">Miss 🟨</label>
-              <select class="w-full" id="miss" data-action="theme-generator#change" data-theme-generator-target="miss">
+              <select class="w-full" data-preferences-saver-target="input" id="miss" data-action="theme-generator#change" data-theme-generator-target="miss">
                 <% emojis do |emoji| %>
                   <option value="<%=emoji.emoji%>" <%= emoji.emoji == "🤏" ? "selected" : "" %>><%=emoji.display_name%></option>
                   <% end %>
@@ -23,7 +23,7 @@
               </div>
               <div class="border border-gray-300 rounded-lg p-2">
                 <label for="wrong">Wrong ⬛️</label>
-                <select class="w-full" id="wrong" data-action="theme-generator#change" data-theme-generator-target="wrong">
+                <select class="w-full" data-preferences-saver-target="input" id="wrong" data-action="theme-generator#change" data-theme-generator-target="wrong">
                   <% emojis do |emoji| %>
                     <option value="<%=emoji.emoji%>" <%= emoji.emoji == "❌" ? "selected" : "" %>><%=emoji.display_name%></option>
                     <% end %>
