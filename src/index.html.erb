@@ -31,11 +31,15 @@
                 </div>
                 <div class="border border-gray-300 rounded-lg p-2">
                   <label for="hit">Hit 🟩</label>
-                  <select class="w-full" id="hit" data-action="theme-generator#change" data-theme-generator-target="hit">
+                  <select class="w-full" data-preferences-saver-target="input" id="hit" data-action="theme-generator#change" data-theme-generator-target="hit">
                     <% emojis do |emoji| %>
                       <option value="<%=emoji.emoji%>" <%= emoji.emoji == "✅" ? "selected" : "" %> ><%=emoji.display_name%></option>
                     <% end %>
                   </select>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="bg-cyan-400 border p-1 rounded border-black text-white text-xs" data-action="preferences-saver#clearPreferences">Clear Saved Theme</button>
+                  <button class="bg-cyan-400 border p-1 rounded border-black text-white text-xs" data-action="preferences-saver#saveToPreferences">Save Theme</button>
                 </div>
               </div>
               <div class="flex flex-col lg:flex-row text-center space-x-4">
@@ -43,15 +47,17 @@
                   Paste score here 👇
                   <textarea rows=9 class="block w-36 resize-none mx-auto text-center border border-gray-300 rounded-lg" data-theme-generator-target="input" data-action="theme-generator#change"></textarea>
                 </div>
-                <div>
+                <div class="space-y-4">
                   Themed score
                   <textarea rows=9 readonly class="block w-36 resize-none mx-auto text-center border border-gray-300 rounded-lg" data-theme-generator-target="output" data-output-clipboard-target="input"></textarea>
+                  <div class="flex flex-col items-center">
+                    <button class="bg-cyan-400 border p-1 rounded border-black text-white text-xs" data-action="output-clipboard#copyToClipboard">Copy to clipboard</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="flex flex-col items-center">
-              <span data-output-clipboard-target="message" class="opacity-0 transition-opacity">Copied to clipboard!</span>
-              <button class="bg-cyan-400 border-2 border-black rounded-lg p-2 mt-2 text-white" data-action="output-clipboard#copyToClipboard">Copy to clipboard</button>
+            <div class="flex justify-center">
+              <span id="flash-message" class="opacity-0 transition-opacity"></span>
             </div>
           </div>
         </div>
