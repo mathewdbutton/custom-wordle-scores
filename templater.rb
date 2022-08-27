@@ -24,7 +24,7 @@ variables = JSON.parse(File.read(variable_path))
     end
 
     def display_name
-      "#{short_code} #{emoji}"
+      "#{emoji} #{short_code}"
     end
   end
 

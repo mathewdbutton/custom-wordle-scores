@@ -18,6 +18,11 @@
             Customise your tiles
             <div class="border border-gray-300 rounded-lg p-2">
               <label for="miss">Miss 🟨</label>
+              <div data-controller="emoji-picker">
+                <input class="border border-black w-full" type="text"  data-emoji-picker-target="input" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults">
+                <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
+                </div>
+              </div>
               <select class="w-full" data-preferences-saver-target="input" id="miss" data-action="theme-generator#change" data-theme-generator-target="miss">
                 <% emojis do |emoji| %>
                   <option value="<%=emoji.emoji%>" <%= emoji.emoji == "🤏" ? "selected" : "" %>><%=emoji.display_name%></option>
@@ -63,6 +68,13 @@
               <span id="flash-message" class="opacity-0 transition-opacity"></span>
             </div>
           </div>
+        </div>
+        <div id="results-container">
+          <% emojis do |emoji| %>
+            <span data-emoji-picker-target="result" data-search-term="<%=emoji.short_code%>" data-action="mousedown->emoji-picker#select"  class="hidden cursor-pointer border-b border-b-slate-200 " data-value="<%=emoji.emoji%>">
+              <%= emoji.display_name %>
+            </span>
+          <% end %>
         </div>
       </body>
     </html>

@@ -19,10 +19,10 @@ export default class extends Controller {
       return;
     }
     let legend =
-      `\n\n${this.wrongTarget.value}=⬛ ${this.missTarget.value}=🟨 ${this.hitTarget.value}=🟩`;
+      `\n\n${this.wrongTarget.dataset.selectedEmoji}=⬛ ${this.missTarget.dataset.selectedEmoji}=🟨 ${this.hitTarget.dataset.selectedEmoji}=🟩`;
     this.outputTarget.value = inputScore
-      .replaceAll("⬛", this.wrongTarget.value)
-      .replaceAll("🟨", this.missTarget.value)
-      .replaceAll("🟩", this.hitTarget.value) + legend;
+      .replaceAll("⬛", this.wrongTarget.dataset.selectedEmoji)
+      .replaceAll("🟨", this.missTarget.dataset.selectedEmoji)
+      .replaceAll("🟩", this.hitTarget.dataset.selectedEmoji) + legend;
   }
 }
