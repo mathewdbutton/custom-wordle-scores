@@ -1,7 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "output","miss","wrong","hit"]
+  static targets = ["input", "output", "miss", "wrong", "hit"]
+
+  declare readonly inputTarget: HTMLInputElement;
+  declare readonly missTarget: HTMLInputElement;
+  declare readonly hitTarget: HTMLInputElement;
+  declare readonly wrongTarget: HTMLInputElement;
+  declare readonly outputTarget: HTMLInputElement;
 
   connect() {
     this.change();

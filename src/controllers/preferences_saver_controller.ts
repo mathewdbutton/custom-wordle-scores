@@ -2,6 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 import { flashMessage } from "../lib/messages";
 
 export default class extends Controller {
+
+  declare readonly inputTargets: Array<HTMLInputElement>;
+
   static targets = ["input", "message"]
   THEMESTORAGEID = "savedTheme";
 
@@ -24,8 +27,8 @@ export default class extends Controller {
   }
 
   loadFromPreferences() {
-    let savedThemeComponents = JSON.parse(window.localStorage.getItem(this.THEMESTORAGEID));
-    if (savedThemeComponents === null) return;
+    let savedThemeComponents = JSON.parse(window.localStorage.getItem(this.THEMESTORAGEID) || "{}");
+    if (Object.entries(savedThemeComponents).length === 0) return;
 
     let indexedThemeInputs = this.inputTargets.reduce((previousValue, currentValue) => {
       previousValue[currentValue.id] = currentValue;
