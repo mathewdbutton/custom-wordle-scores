@@ -19,31 +19,27 @@
             <div class="border border-gray-300 rounded-lg p-2">
               <label for="miss">Miss 🟨</label>
               <div data-controller="emoji-picker">
-                <input class="border border-black w-full" type="text"  data-emoji-picker-target="input" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults">
+                <input class="border border-black w-full" type="text" data-emoji-picker-target="input" data-theme-generator-target="miss" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
                 <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
                 </div>
               </div>
-              <select class="w-full" data-preferences-saver-target="input" id="miss" data-action="theme-generator#change" data-theme-generator-target="miss">
-                <% emojis do |emoji| %>
-                  <option value="<%=emoji.emoji%>" <%= emoji.emoji == "🤏" ? "selected" : "" %>><%=emoji.display_name%></option>
-                  <% end %>
-                </select>
               </div>
               <div class="border border-gray-300 rounded-lg p-2">
                 <label for="wrong">Wrong ⬛️</label>
-                <select class="w-full" data-preferences-saver-target="input" id="wrong" data-action="theme-generator#change" data-theme-generator-target="wrong">
-                  <% emojis do |emoji| %>
-                    <option value="<%=emoji.emoji%>" <%= emoji.emoji == "❌" ? "selected" : "" %>><%=emoji.display_name%></option>
-                    <% end %>
-                  </select>
+                <div data-controller="emoji-picker">
+                  <input class="border border-black w-full" type="text" data-emoji-picker-target="input" data-theme-generator-target="wrong" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
+                  <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
+                  </div>
+                </div>
+
                 </div>
                 <div class="border border-gray-300 rounded-lg p-2">
                   <label for="hit">Hit 🟩</label>
-                  <select class="w-full" data-preferences-saver-target="input" id="hit" data-action="theme-generator#change" data-theme-generator-target="hit">
-                    <% emojis do |emoji| %>
-                      <option value="<%=emoji.emoji%>" <%= emoji.emoji == "✅" ? "selected" : "" %> ><%=emoji.display_name%></option>
-                    <% end %>
-                  </select>
+                  <div data-controller="emoji-picker">
+                    <input class="border border-black w-full" type="text" data-emoji-picker-target="input" data-theme-generator-target="hit" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
+                    <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
+                  </div>
+                </div>
                 </div>
                 <div class="flex space-x-2">
                   <button class="bg-cyan-400 border p-1 rounded border-black text-white text-xs" data-action="preferences-saver#clearPreferences">Clear Saved Theme</button>
@@ -53,7 +49,15 @@
               <div class="flex flex-col lg:flex-row text-center space-x-4">
                 <div>
                   Paste score here 👇
-                  <textarea rows=9 class="block w-36 resize-none mx-auto text-center border border-gray-300 rounded-lg" data-theme-generator-target="input" data-action="theme-generator#change"></textarea>
+                  <textarea rows=9 class="block w-36 resize-none mx-auto text-center border border-gray-300 rounded-lg" data-theme-generator-target="input" data-action="theme-generator#change">
+Wordle 435 5/6*
+
+⬛⬛🟨⬛⬛
+⬛🟩⬛⬛⬛
+⬛🟩🟨⬛⬛
+🟩🟩🟩⬛🟩
+🟩🟩🟩🟩🟩
+                  </textarea>
                 </div>
                 <div class="space-y-4">
                   Themed score
@@ -69,6 +73,8 @@
             </div>
           </div>
         </div>
+
+
         <div id="results-container">
           <% emojis do |emoji| %>
             <span data-emoji-picker-target="result" data-search-term="<%=emoji.short_code%>" data-action="mousedown->emoji-picker#select"  class="hidden cursor-pointer border-b border-b-slate-200 " data-value="<%=emoji.emoji%>">

@@ -14,15 +14,28 @@ export default class extends Controller {
   }
 
   change() {
+
+
     let inputScore = this.inputTarget.value;
     if (inputScore === "") {
       return;
     }
-    let legend =
-      `\n\n${this.wrongTarget.dataset.selectedEmoji}=⬛ ${this.missTarget.dataset.selectedEmoji}=🟨 ${this.hitTarget.dataset.selectedEmoji}=🟩`;
+    console.log("COMING")
+    let legend = `\n\n${this.wrongInput()}=⬛ ${this.missInput()}=🟨 ${this.hitInput()}=🟩`;
     this.outputTarget.value = inputScore
-      .replaceAll("⬛", this.wrongTarget.dataset.selectedEmoji)
-      .replaceAll("🟨", this.missTarget.dataset.selectedEmoji)
-      .replaceAll("🟩", this.hitTarget.dataset.selectedEmoji) + legend;
+      .replaceAll("⬛", this.wrongInput())
+      .replaceAll("🟨", this.missInput())
+      .replaceAll("🟩", this.hitInput()) + legend;
   }
+
+  wrongInput() {
+    return this.wrongTarget.dataset.selectedEmoji
+  }
+  missInput() {
+    return this.missTarget.dataset.selectedEmoji
+  }
+  hitInput() {
+    return this.hitTarget.dataset.selectedEmoji
+  }
+
 }

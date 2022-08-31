@@ -12,7 +12,7 @@ export default class extends Controller {
     let selectResult = event.target;
     this.inputTarget.value = selectResult.innerText;
     this.inputTarget.dataset.selectedEmoji = selectResult.dataset.value
-    
+    this.inputTarget.dispatchEvent(new Event("selected"));
   }
 
   closeSearchResults() {
