@@ -10,7 +10,6 @@ export default class extends Controller {
 
   static targets = ["input", "message"]
 
-
   connect() {
     this.loadFromPreferences();
   }
@@ -33,7 +32,7 @@ export default class extends Controller {
     let savedTheme = migrateTheme(JSON.parse(window.localStorage.getItem(THEMESTORAGEID) || "{}"));
 
     if (Object.entries(savedTheme).length === 0) {
-      savedTheme = { version: 2, selectedValues: [{ "id": "miss", "emoji": "🥇", "displayText": "🥇 1st place medal" }, { "id": "wrong", "emoji": "🥈", "displayText": "🥈 2nd place medal" }, { "id": "hit", "emoji": "🥉", "displayText": "🥉 3rd place medal" }] };
+      savedTheme = {"version":2,"selectedValues":[{"id":"miss","emoji":"🤏","displayText":"🤏 pinching hand"},{"id":"wrong","emoji":"❌","displayText":"❌ x"},{"id":"hit","emoji":"✅","displayText":"✅ white check mark"}]};
     } else {
       flashMessage("Loading theme 💾");
     };
