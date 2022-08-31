@@ -28,7 +28,11 @@ export default class extends Controller {
 
   loadFromPreferences() {
     let savedThemeComponents = JSON.parse(window.localStorage.getItem(this.THEMESTORAGEID) || "{}");
-    if (Object.entries(savedThemeComponents).length === 0) return;
+    if (Object.entries(savedThemeComponents).length === 0) {
+      savedThemeComponents = [{ "id": "miss", "emoji": "🥇", "displayText": "🥇 1st place medal" }, { "id": "wrong", "emoji": "🥈", "displayText": "🥈 2nd place medal" }, { "id": "hit", "emoji": "🥉", "displayText": "🥉 3rd place medal" }];
+    } else {
+      flashMessage("Loading theme 💾");
+    };
 
     let indexedThemeInputs = this.inputTargets.reduce((previousValue, currentValue) => {
       previousValue[currentValue.id] = currentValue;
@@ -41,6 +45,6 @@ export default class extends Controller {
       matchingTarget.dataset.selectedEmoji = savedComponent["emoji"];
       matchingTarget.dispatchEvent(new Event("selected"))
     })
-    flashMessage("Loading theme 💾");
+
   }
 }
