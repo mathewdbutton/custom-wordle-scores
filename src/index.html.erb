@@ -19,7 +19,13 @@
             <div class="border border-gray-300 rounded-lg p-2">
               <label for="miss">Miss 🟨</label>
               <div data-controller="emoji-picker">
-                <input class="border border-black w-full" type="text" data-emoji-picker-target="input" data-theme-generator-target="miss" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
+                <input class="border border-black w-full"
+                       type="text"
+                       id="miss"
+                       data-emoji-picker-target="input"
+                       data-theme-generator-target="miss"
+                       data-preferences-saver-target="input"
+                       data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
                 <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
                 </div>
               </div>
@@ -27,7 +33,13 @@
               <div class="border border-gray-300 rounded-lg p-2">
                 <label for="wrong">Wrong ⬛️</label>
                 <div data-controller="emoji-picker">
-                  <input class="border border-black w-full" type="text" data-emoji-picker-target="input" data-theme-generator-target="wrong" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
+                  <input class="border border-black w-full"
+                         type="text"
+                         id="wrong"
+                         data-preferences-saver-target="input"
+                         data-emoji-picker-target="input"
+                         data-theme-generator-target="wrong"
+                         data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
                   <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
                   </div>
                 </div>
@@ -36,7 +48,13 @@
                 <div class="border border-gray-300 rounded-lg p-2">
                   <label for="hit">Hit 🟩</label>
                   <div data-controller="emoji-picker">
-                    <input class="border border-black w-full" type="text" data-emoji-picker-target="input" data-theme-generator-target="hit" data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
+                    <input class="border border-black w-full"
+                           type="text"
+                           id="hit"
+                           data-preferences-saver-target="input"
+                           data-emoji-picker-target="input"
+                           data-theme-generator-target="hit"
+                           data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change">
                     <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
                   </div>
                 </div>

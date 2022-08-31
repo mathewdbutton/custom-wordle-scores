@@ -14,7 +14,7 @@ export default class extends Controller {
 
   saveToPreferences() {
     let selectedThemeComponents = this.inputTargets.map((input) => {
-      return { "id": input.id, "value": input.value }
+      return { "id": input.id, "emoji": input.dataset.selectedEmoji, "displayText": input.value }
     });
 
     window.localStorage.setItem(this.THEMESTORAGEID, JSON.stringify(selectedThemeComponents));
@@ -37,7 +37,9 @@ export default class extends Controller {
 
     savedThemeComponents.forEach((savedComponent) => {
       let matchingTarget = indexedThemeInputs[savedComponent["id"]];
-      matchingTarget.value = savedComponent["value"];
+      matchingTarget.value = savedComponent["displayText"];
+      matchingTarget.dataset.selectedEmoji = savedComponent["emoji"];
+      matchingTarget.dispatchEvent(new Event("selected"))
     })
     flashMessage("Loading theme 💾");
   }
