@@ -1,0 +1,2 @@
+html-templating: ./templater.rb ./src/index.html.erb variables.json && fswatch -0 ./src/index.html.erb ./variables.json templater.rb | xargs -0 -n 1 ./templater.rb ./src/index.html.erb variables.json
+parcel: npm run start
