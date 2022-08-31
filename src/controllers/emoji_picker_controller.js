@@ -22,7 +22,8 @@ export default class extends Controller {
 
   search() {
     this.resultsTarget.appendChild(document.querySelector("#results-container"));
-    let filteredFields = Array.from(document.querySelectorAll(`[data-search-term*='${this.inputTarget.value}']`));
+    const searchTerm = this.inputTarget.value.replaceAll(/[^a-zA-Z ]/g, "").trim(); // Filters out the emoji - This is really dumb
+    let filteredFields = Array.from(document.querySelectorAll(`[data-search-term*='${searchTerm}']`));
 
     if (this.inputTarget.value === "" || filteredFields.length === 0) {
       this.closeSearchResults()
