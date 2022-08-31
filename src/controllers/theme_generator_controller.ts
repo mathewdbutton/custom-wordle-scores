@@ -14,13 +14,8 @@ export default class extends Controller {
   }
 
   change() {
-
-
     let inputScore = this.inputTarget.value;
-    if (inputScore === "") {
-      return;
-    }
-    console.log("COMING")
+
     let legend = `\n\n${this.wrongInput()}=⬛ ${this.missInput()}=🟨 ${this.hitInput()}=🟩`;
     this.outputTarget.value = inputScore
       .replaceAll("⬛", this.wrongInput())
