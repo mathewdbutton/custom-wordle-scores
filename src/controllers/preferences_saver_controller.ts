@@ -1,12 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 import { flashMessage } from "../lib/messages";
+import { migrateTheme } from "../lib/theme_migrator";
+
+export const THEMESTORAGEID = "savedTheme";
 
 export default class extends Controller {
 
   declare readonly inputTargets: Array<HTMLInputElement>;
 
   static targets = ["input", "message"]
-  THEMESTORAGEID = "savedTheme";
+
 
   connect() {
     this.loadFromPreferences();
@@ -17,19 +20,20 @@ export default class extends Controller {
       return { "id": input.id, "emoji": input.dataset.selectedEmoji, "displayText": input.value }
     });
 
-    window.localStorage.setItem(this.THEMESTORAGEID, JSON.stringify(selectedThemeComponents));
+    window.localStorage.setItem(THEMESTORAGEID, JSON.stringify({version: 2, selectedValues: selectedThemeComponents }));
     flashMessage("Saving theme 💾");
   }
 
   clearPreferences() {
-    window.localStorage.removeItem(this.THEMESTORAGEID);
+    window.localStorage.removeItem(THEMESTORAGEID);
     flashMessage("Theme cleared 🗑");
   }
 
   loadFromPreferences() {
-    let savedThemeComponents = JSON.parse(window.localStorage.getItem(this.THEMESTORAGEID) || "{}");
-    if (Object.entries(savedThemeComponents).length === 0) {
-      savedThemeComponents = [{ "id": "miss", "emoji": "🥇", "displayText": "🥇 1st place medal" }, { "id": "wrong", "emoji": "🥈", "displayText": "🥈 2nd place medal" }, { "id": "hit", "emoji": "🥉", "displayText": "🥉 3rd place medal" }];
+    let savedTheme = migrateTheme(JSON.parse(window.localStorage.getItem(THEMESTORAGEID) || "{}"));
+
+    if (Object.entries(savedTheme).length === 0) {
+      savedTheme = { version: 2, selectedValues: [{ "id": "miss", "emoji": "🥇", "displayText": "🥇 1st place medal" }, { "id": "wrong", "emoji": "🥈", "displayText": "🥈 2nd place medal" }, { "id": "hit", "emoji": "🥉", "displayText": "🥉 3rd place medal" }] };
     } else {
       flashMessage("Loading theme 💾");
     };
@@ -39,7 +43,7 @@ export default class extends Controller {
       return previousValue
     }, {});
 
-    savedThemeComponents.forEach((savedComponent) => {
+    savedTheme["selectedValues"].forEach((savedComponent) => {
       let matchingTarget = indexedThemeInputs[savedComponent["id"]];
       matchingTarget.value = savedComponent["displayText"];
       matchingTarget.dataset.selectedEmoji = savedComponent["emoji"];
