@@ -13,12 +13,12 @@
     <div class="container mx-auto p-20" >
       <div data-controller="theme-generator output-clipboard preferences-saver">
         <h1 class="text-cyan-400 text-4xl text-center pb-4">Custom Wordle Scores</h1>
-        <div class="flex flex-col lg:flex-row justify-center">
-          <div class="px-10 lg:w-72 space-y-4">
+        <div class="flex flex-col md:flex-row justify-center">
+          <div class="md:px-10 md:w-72 space-y-4">
             Customise your tiles
             <div class="border border-gray-300 rounded-lg p-2">
               <label for="miss">Miss 🟨</label>
-              <div data-controller="emoji-picker">
+              <div data-controller="emoji-picker" class="relative">
                 <input class="border border-black w-full"
                        placeholder="Type to search"
                        type="text"
@@ -27,13 +27,13 @@
                        data-theme-generator-target="miss"
                        data-preferences-saver-target="input"
                        data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change click->emoji-picker#search">
-                <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
+                <div data-emoji-picker-target="results" class="absolute z-10 bg-white border border-black h-32 overflow-y-scroll hidden w-full lg:w-64">
                 </div>
               </div>
               </div>
               <div class="border border-gray-300 rounded-lg p-2">
                 <label for="wrong">Wrong ⬛️</label>
-                <div data-controller="emoji-picker">
+                <div data-controller="emoji-picker" class="relative">
                   <input class="border border-black w-full"
                          placeholder="Type to search"
                          type="text"
@@ -42,14 +42,14 @@
                          data-emoji-picker-target="input"
                          data-theme-generator-target="wrong"
                          data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change click->emoji-picker#search">
-                  <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
+                  <div data-emoji-picker-target="results" class="absolute z-10 bg-white border border-black h-32 overflow-y-scroll hidden w-full lg:w-64">
                   </div>
                 </div>
 
                 </div>
                 <div class="border border-gray-300 rounded-lg p-2">
                   <label for="hit">Hit 🟩</label>
-                  <div data-controller="emoji-picker">
+                  <div data-controller="emoji-picker" class="relative">
                     <input class="border border-black w-full"
                            placeholder="Type to search"
                            type="text"
@@ -58,16 +58,16 @@
                            data-emoji-picker-target="input"
                            data-theme-generator-target="hit"
                            data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change click->emoji-picker#search">
-                    <div data-emoji-picker-target="results" class="fixed bg-white border border-black h-32 overflow-y-scroll hidden w-64">
+                    <div data-emoji-picker-target="results" class="absolute z-10 bg-white border border-black h-32 overflow-y-scroll hidden w-full lg:w-64">
                   </div>
                 </div>
                 </div>
-                <div class="flex space-x-2">
+                <div class="flex space-x-2 justify-center">
                   <button class="bg-cyan-400 border p-1 rounded border-black text-white text-xs" data-action="preferences-saver#clearPreferences">Clear Saved Theme</button>
                   <button class="bg-cyan-400 border p-1 rounded border-black text-white text-xs" data-action="preferences-saver#saveToPreferences">Save Theme</button>
                 </div>
               </div>
-              <div class="flex flex-col lg:flex-row text-center space-x-4">
+              <div class="flex pt-4 md:pt-0 flex-row text-center sm:space-x-4 justify-center flex-wrap">
                 <div>
                   Paste score here 👇
                   <textarea rows=9 class="block w-36 resize-none mx-auto text-center border border-gray-300 rounded-lg" data-theme-generator-target="input" data-action="theme-generator#change">
