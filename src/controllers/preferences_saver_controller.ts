@@ -29,7 +29,7 @@ export default class extends Controller {
   }
 
   loadFromPreferences() {
-    let savedTheme = migrateTheme(JSON.parse(window.localStorage.getItem(THEMESTORAGEID) || "{}"));
+    let savedTheme = JSON.parse(window.localStorage.getItem(THEMESTORAGEID) || "{}");
 
     if (Object.entries(savedTheme).length === 0) {
       savedTheme = {"version":2,"selectedValues":[{"id":"miss","emoji":"🤏","displayText":"🤏 pinching hand"},{"id":"wrong","emoji":"❌","displayText":"❌ x"},{"id":"hit","emoji":"✅","displayText":"✅ white check mark"}]};
@@ -37,12 +37,14 @@ export default class extends Controller {
       flashMessage("Loading theme 💾");
     };
 
+    const normalisedTheme = migrateTheme(savedTheme)
+
     let indexedThemeInputs = this.inputTargets.reduce((previousValue, currentValue) => {
       previousValue[currentValue.id] = currentValue;
       return previousValue
     }, {});
 
-    savedTheme["selectedValues"].forEach((savedComponent) => {
+    normalisedTheme["selectedValues"].forEach((savedComponent) => {
       let matchingTarget = indexedThemeInputs[savedComponent["id"]];
       matchingTarget.value = savedComponent["displayText"];
       matchingTarget.dataset.selectedEmoji = savedComponent["emoji"];
