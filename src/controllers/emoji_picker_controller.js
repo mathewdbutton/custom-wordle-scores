@@ -1,17 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-import emojis from "../emoji-reference.json"
-
-const searchableEmojis = emojis["emojis"].reduce((emojiSet, emoji) => {
-  const searchName = emoji["shortname"].replaceAll(":", "").replaceAll("_", " ")
-  emojiSet[searchName] = emoji
-  return emojiSet
- }, {})
+import emojis from "../../filtered_emoji_list.json"
 
 export default class extends Controller {
   static targets = ["input", "result", "results"]
 
   initialize() {
-    this.emojis = searchableEmojis;
+    this.emojis = emojis;
   }
 
   select(event) {
