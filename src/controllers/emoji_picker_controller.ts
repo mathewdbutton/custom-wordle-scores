@@ -34,12 +34,15 @@ export default class extends Controller {
   }
 
   async search() {
+    document.querySelector("#results-container").classList.remove("hidden");
+    this.resultsTarget.classList.replace("hidden", "block");
+    this.resultsTarget.appendChild(document.querySelector("#results-container"));
     if (Object.keys(this.emojis).length === 0) {
       await this.loadEmojis()
     }
-    
+
     this.destroyResults();
-    this.resultsTarget.appendChild(document.querySelector("#results-container"));
+
     const searchIndex = Object.keys(this.emojis)
     const searchTerm = this.inputTarget.value.replaceAll(/[^a-zA-Z ]/g, "").trim().toLowerCase();
     const filteredSearchIndex = searchIndex.filter((emojiName) => {
@@ -56,8 +59,8 @@ export default class extends Controller {
 
       this.createResult(emojiName, emoji["emoji"])
     })
+    document.querySelector("#results-container").classList.remove("flex","flex-col", "hidden", "items-center", "justify-center");
 
-    this.resultsTarget.classList.replace("hidden", "block");
   }
 
   createResult(searchTerm, value) {
