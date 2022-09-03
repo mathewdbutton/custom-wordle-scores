@@ -1,5 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
-import emojis from "../filtered_emoji_list.json"
+
+async function load() {
+  return await import("../filtered_emoji_list.json");
+}
+
 
 export default class extends Controller {
   static targets = ["input", "result", "results"]
@@ -7,7 +11,11 @@ export default class extends Controller {
   declare readonly inputTarget: HTMLInputElement;
   declare readonly resultTargets: HTMLInputElement[];
   declare readonly resultsTarget: HTMLInputElement;
+  emojis: {};
 
+  initialize() {
+    this.emojis = {};
+  }
 
   select(event) {
     let selectResult = event.target;
@@ -21,10 +29,18 @@ export default class extends Controller {
     this.resultTargets.forEach((result) => result.classList.replace("block", "hidden"));
   }
 
-  search() {
+  async loadEmojis() {
+    this.emojis = await load();
+  }
+
+  async search() {
+    if (Object.keys(this.emojis).length === 0) {
+      await this.loadEmojis()
+    }
+    
     this.destroyResults();
     this.resultsTarget.appendChild(document.querySelector("#results-container"));
-    const searchIndex = Object.keys(emojis)
+    const searchIndex = Object.keys(this.emojis)
     const searchTerm = this.inputTarget.value.replaceAll(/[^a-zA-Z ]/g, "").trim().toLowerCase();
     const filteredSearchIndex = searchIndex.filter((emojiName) => {
       return emojiName.includes(searchTerm)
@@ -36,7 +52,7 @@ export default class extends Controller {
     }
 
     filteredSearchIndex.forEach((emojiName) => {
-      const emoji = emojis[emojiName];
+      const emoji = this.emojis[emojiName];
 
       this.createResult(emojiName, emoji["emoji"])
     })
