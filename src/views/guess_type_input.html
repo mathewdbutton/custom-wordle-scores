@@ -1,0 +1,10 @@
+<input class="border border-black w-full"
+placeholder="Type to search"
+type="text"
+id="{{ inputType }}"
+data-emoji-picker-target="input"
+data-theme-generator-target="{{ inputType }}"
+data-preferences-saver-target="input"
+data-action="emoji-picker#search blur->emoji-picker#closeSearchResults selected->theme-generator#change click->emoji-picker#search">
+<div data-emoji-picker-target="results" class="absolute z-10 bg-white border border-black h-32 overflow-y-scroll hidden w-full lg:w-64">
+</div>

@@ -1,0 +1,29 @@
+<div class="md:px-10 md:w-72 space-y-4">
+  Customise your tiles
+  <div class="border border-gray-300 rounded-lg p-2">
+    <label for="miss">Miss 🟨</label>
+    <div data-controller="emoji-picker" class="relative">
+      <include src="guess_type_input.html"> {"inputType": "miss"} </include>
+    </div>
+  </div>
+  <div class="border border-gray-300 rounded-lg p-2">
+    <label for="wrong">Wrong ⬛️</label>
+    <div data-controller="emoji-picker" class="relative">
+      <include src="guess_type_input.html"> {"inputType": "wrong"} </include>
+    </div>
+  </div>
+  <div class="border border-gray-300 rounded-lg p-2">
+    <label for="hit">Hit 🟩</label>
+    <div data-controller="emoji-picker" class="relative">
+      <include src="guess_type_input.html"> {"inputType": "hit"} </include>
+    </div>
+  </div>
+  <div class="flex space-x-2 justify-center">
+    <include src="button.html">
+      {"body": "Clear Saved Theme","actions":"preferences-saver#clearPreferences"}
+    </include>
+    <include src="button.html">
+      {"body": "Save Theme","actions":"preferences-saver#saveToPreferences"}
+    </include>
+  </div>
+</div>
