@@ -1,11 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
-import Emojis from "../emoji-reference.json"
+import emojis from "../emoji-reference.json"
+
+const searchableEmojis = emojis["emojis"].reduce((emojiSet, emoji) => {
+  const searchName = emoji["shortname"].replaceAll(":", "").replaceAll("_", " ")
+  emojiSet[searchName] = emoji
+  return emojiSet
+ }, {})
 
 export default class extends Controller {
   static targets = ["input", "result", "results"]
 
   initialize() {
-    this.emojis = Emojis["emojis"]
+    this.emojis = searchableEmojis;
   }
 
   select(event) {
@@ -21,22 +27,38 @@ export default class extends Controller {
   }
 
   search() {
+    this.destroyResults();
     this.resultsTarget.appendChild(document.querySelector("#results-container"));
-    const searchTerm = this.inputTarget.value.replaceAll(/[^a-zA-Z ]/g, "").trim(); // Filters out the emoji - This is really dumb
-    let filteredFields = Array.from(document.querySelectorAll(`[data-search-term*='${searchTerm}']`));
+    const searchIndex = Object.keys(this.emojis)
+    const searchTerm = this.inputTarget.value.replaceAll(/[^a-zA-Z ]/g, "").trim().toLowerCase();
+    const filteredSearchIndex = searchIndex.filter((emojiName) => {
+      return emojiName.includes(searchTerm)
+    }).slice(0,50)
 
-    if (this.inputTarget.value === "" || filteredFields.length === 0) {
+    if (this.inputTarget.value === "" || filteredSearchIndex.length === 0) {
       this.closeSearchResults()
       return;
     }
 
-    this.resultTargets.forEach((result) => {
-      if (filteredFields.includes(result)) {
-        result.classList.replace("hidden", "block")
-      } else {
-        result.classList.add("block", "hidden")
-      }
+    filteredSearchIndex.forEach((emojiName) => {
+      const emoji = this.emojis[emojiName];
+
+      this.createResult(emojiName, emoji["emoji"])
     })
+
     this.resultsTarget.classList.replace("hidden", "block");
+  }
+
+  createResult(searchTerm, value) {
+    const template = document.getElementById('emoji-result-template');
+    const clone = template.content.cloneNode(true).querySelector("span");
+    clone.dataset.searchTerm = searchTerm
+    clone.dataset.value = value
+    clone.innerText = `${value} ${searchTerm}`
+    document.getElementById("results-container").appendChild(clone);
+  }
+
+  destroyResults() {
+    document.getElementById("results-container").replaceChildren();
   }
 }
