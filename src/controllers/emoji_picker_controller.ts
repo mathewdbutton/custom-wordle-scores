@@ -4,9 +4,10 @@ import emojis from "../filtered_emoji_list.json"
 export default class extends Controller {
   static targets = ["input", "result", "results"]
 
-  initialize() {
-    this.emojis = emojis;
-  }
+  declare readonly inputTarget: HTMLInputElement;
+  declare readonly resultTargets: HTMLInputElement[];
+  declare readonly resultsTarget: HTMLInputElement;
+
 
   select(event) {
     let selectResult = event.target;
@@ -23,7 +24,7 @@ export default class extends Controller {
   search() {
     this.destroyResults();
     this.resultsTarget.appendChild(document.querySelector("#results-container"));
-    const searchIndex = Object.keys(this.emojis)
+    const searchIndex = Object.keys(emojis)
     const searchTerm = this.inputTarget.value.replaceAll(/[^a-zA-Z ]/g, "").trim().toLowerCase();
     const filteredSearchIndex = searchIndex.filter((emojiName) => {
       return emojiName.includes(searchTerm)
@@ -35,7 +36,7 @@ export default class extends Controller {
     }
 
     filteredSearchIndex.forEach((emojiName) => {
-      const emoji = this.emojis[emojiName];
+      const emoji = emojis[emojiName];
 
       this.createResult(emojiName, emoji["emoji"])
     })
@@ -45,7 +46,10 @@ export default class extends Controller {
 
   createResult(searchTerm, value) {
     const template = document.getElementById('emoji-result-template');
-    const clone = template.content.cloneNode(true).querySelector("span");
+    if (!(template instanceof HTMLTemplateElement)) {
+      return
+    }
+    const clone = template.content.firstElementChild.cloneNode(true) as HTMLElement
     clone.dataset.searchTerm = searchTerm
     clone.dataset.value = value
     clone.innerText = `${value} ${searchTerm}`
