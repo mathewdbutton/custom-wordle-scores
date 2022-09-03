@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import emojis from "../../filtered_emoji_list.json"
+import emojis from "../filtered_emoji_list.json"
 
 export default class extends Controller {
   static targets = ["input", "result", "results"]
