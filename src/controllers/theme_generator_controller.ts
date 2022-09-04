@@ -18,7 +18,7 @@ export default class extends Controller {
 
     let legend = `\n\n${this.wrongInput()}=⬛ ${this.missInput()}=🟨 ${this.hitInput()}=🟩`;
     this.outputTarget.value = inputScore
-      .replaceAll("⬛", this.wrongInput())
+      .replaceAll(/⬛|⬜/g, this.wrongInput())
       .replaceAll("🟨", this.missInput())
       .replaceAll("🟩", this.hitInput()) + legend;
   }
